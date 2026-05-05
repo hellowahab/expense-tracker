@@ -1,0 +1,125 @@
+<div style="max-width:720px; margin:0 auto; padding:24px; font-family:sans-serif;">
+
+  <!-- Summary cards -->
+  <div style="display:flex; gap:16px; margin-bottom:32px;">
+    <div style="flex:1; border:1px solid #ddd; border-radius:8px; padding:16px;">
+      <div style="font-size:12px; color:#888;">Total Budget</div>
+      <div style="font-size:20px; font-weight:600;">
+        Rs {{ totals().budget | number }}
+      </div>
+    </div>
+    <div style="flex:1; border:1px solid #ddd; border-radius:8px; padding:16px;">
+      <div style="font-size:12px; color:#888;">Spent</div>
+      <div style="font-size:20px; font-weight:600; color:#e53e3e;">
+        Rs {{ totals().spent | number }}
+      </div>
+    </div>
+    <div style="flex:1; border:1px solid #ddd; border-radius:8px; padding:16px;">
+      <div style="font-size:12px; color:#888;">Remaining</div>
+      <div style="font-size:20px; font-weight:600;"
+        [style.color]="totals().remaining < 0 ? '#e53e3e' : '#38a169'">
+        Rs {{ totals().remaining | number }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Budget alert bars -->
+  <h2 style="margin-bottom:16px;">Monthly Budgets</h2>
+  <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:32px;">
+    @for (b of budgets(); track b.category) {
+      <div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+          <span>{{ b.category }}</span>
+          <span style="font-size:13px; color:#666;">
+            Rs {{ b.spent | number }} / Rs {{ b.limit | number }}
+          </span>
+        </div>
+        <div style="height:8px; background:#eee; border-radius:4px; overflow:hidden;">
+          <div
+            [style.width.%]="b.percentage"
+            [style.background]="b.status === 'over' ? '#e53e3e' : b.status === 'warning' ? '#dd6b20' : '#38a169'"
+            style="height:100%; border-radius:4px; transition:width .3s;">
+          </div>
+        </div>
+        @if (b.status === 'warning') {
+          <p style="font-size:12px; color:#dd6b20; margin-top:4px;">
+            ⚠️ Heads up — 80% of budget used
+          </p>
+        }
+        @if (b.status === 'over') {
+          <p style="font-size:12px; color:#e53e3e; margin-top:4px;">
+            🚨 Budget exceeded!
+          </p>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Add expense form -->
+  <h2 style="margin-bottom:16px;">Add Expense</h2>
+  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:32px;">
+    <input
+      type="text"
+      placeholder="Title"
+      [ngModel]="newTitle()"
+      (ngModelChange)="newTitle.set($event)"
+      style="flex:1; min-width:140px; padding:8px 12px; border:1px solid #ddd; border-radius:6px;" />
+    <input
+      type="number"
+      placeholder="Amount (Rs)"
+      [ngModel]="newAmount()"
+      (ngModelChange)="newAmount.set($event)"
+      style="width:150px; padding:8px 12px; border:1px solid #ddd; border-radius:6px;" />
+    <select
+      [ngModel]="newCategory()"
+      (ngModelChange)="newCategory.set($event)"
+      style="padding:8px 12px; border:1px solid #ddd; border-radius:6px;">
+      @for (cat of categories; track cat) {
+        <option [value]="cat">{{ cat }}</option>
+      }
+    </select>
+    <button
+      (click)="addExpense()"
+      style="padding:8px 20px; background:#4f46e5; color:white; border:none; border-radius:6px; cursor:pointer;">
+      Add
+    </button>
+  </div>
+
+  <!-- Filter pills -->
+  <h2 style="margin-bottom:12px;">
+    This Month
+    <span style="font-size:14px; font-weight:400; color:#888;">
+      {{ filteredExpenses().length }} expenses
+    </span>
+  </h2>
+  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;">
+    @for (cat of ['All', ...categories]; track cat) {
+      <button
+        (click)="setCategory(cat)"
+        [style.background]="selectedCategory() === cat ? '#4f46e5' : '#f3f4f6'"
+        [style.color]="selectedCategory() === cat ? 'white' : '#374151'"
+        style="padding:6px 14px; border:none; border-radius:99px; cursor:pointer; font-size:13px;">
+        {{ cat }}
+      </button>
+    }
+  </div>
+
+  <!-- Expense list -->
+  <div style="display:flex; flex-direction:column; gap:8px;">
+    @for (e of filteredExpenses(); track e.id) {
+      <div style="display:flex; align-items:center; justify-content:space-between;
+                  padding:12px 16px; border:1px solid #eee; border-radius:8px;">
+        <span style="font-weight:500;">{{ e.title }}</span>
+        <span style="font-size:12px; color:#888; background:#f3f4f6;
+                     padding:2px 8px; border-radius:99px;">{{ e.category }}</span>
+        <span style="font-size:12px; color:#aaa;">{{ e.date }}</span>
+        <span style="font-weight:600;">Rs {{ e.amount | number }}</span>
+      </div>
+    } @empty {
+      <p style="color:#aaa; text-align:center; padding:24px;">
+        No expenses in this category yet.
+      </p>
+    }
+  </div>
+
+</div>

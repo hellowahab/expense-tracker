@@ -1,13 +1,13 @@
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Expense, Budget, Category } from '../../models/expense.model';
 import { SEED_EXPENSES, SEED_LIMITS } from '../../data/expenses.data';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './dashboard.html',
 })
 export class DashboardComponent {
@@ -16,9 +16,43 @@ export class DashboardComponent {
   expenses = signal<Expense[]>(SEED_EXPENSES);
   limits = signal<Record<string, number>>(SEED_LIMITS);
   selectedCategory = signal<string>('All');
-  newTitle = signal('');
-  newAmount = signal<number | null>(null);
-  newCategory = signal<Category>('Food');
+
+  // ── Expense form
+  expenseForm = new FormGroup({
+    title: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
+    amount: new FormControl<number | null>(null, [
+      Validators.required,
+      Validators.min(1),
+    ]),
+    category: new FormControl<Category>('Food', [
+      Validators.required,
+    ]),
+    note: new FormControl(''),
+  });
+
+  get titleControl()    { return this.expenseForm.get('title');    }
+  get amountControl()   { return this.expenseForm.get('amount');   }
+  get categoryControl() { return this.expenseForm.get('category'); }
+  get noteControl()     { return this.expenseForm.get('note');     }
+
+  // ── Budget editor form
+  budgetForm = new FormGroup({
+    category: new FormControl<Category>('Food', [
+      Validators.required,
+    ]),
+    limit: new FormControl<number | null>(null, [
+      Validators.required,
+      Validators.min(1),
+    ]),
+  });
+
+  get budgetCategoryControl() { return this.budgetForm.get('category'); }
+  get budgetLimitControl()    { return this.budgetForm.get('limit');    }
+
+
 
   categories: Category[] = [
     'Food', 'Transport', 'Shopping',
@@ -69,23 +103,41 @@ export class DashboardComponent {
       : this.thisMonthExpenses().filter(e => e.category === cat);
   });
 
-  // ── Methods: update signals
+  // ── Methods
   addExpense() {
-    const title = this.newTitle().trim();
-    const amount = this.newAmount();
-    if (!title || !amount) return;
+    if (this.expenseForm.invalid) return;
+
+    const { title, amount, category, note } = this.expenseForm.getRawValue();
 
     this.expenses.update(prev => [...prev, {
       id: Date.now(),
-      title,
-      amount,
-      category: this.newCategory(),
+      title: title!,
+      amount: amount!,
+      category: category!,
       date: new Date().toISOString().slice(0, 10),
+      note: note || undefined,
     }]);
 
-    // reset the form signals
-    this.newTitle.set('');
-    this.newAmount.set(null);
+    this.expenseForm.reset({ category: 'Food' });
+  }
+
+  onBudgetCategoryChange(category: string) {
+    const currentLimit = this.limits()[category] || 0;
+    this.budgetForm.patchValue({ limit: currentLimit });
+  }
+
+  saveBudget() {
+    if (this.budgetForm.invalid) return;
+
+    const { category, limit } = this.budgetForm.getRawValue();
+
+    this.limits.update(prev => ({
+      ...prev,
+      [category!]: limit!,
+    }));
+
+    this.budgetForm.reset({ category: 'Food' });
+    this.onBudgetCategoryChange('Food');
   }
 
   setCategory(cat: string) {

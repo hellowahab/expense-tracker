@@ -1,21 +1,31 @@
-import { Component, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Expense, Budget, Category } from '../../models/expense.model';
-import { SEED_EXPENSES, SEED_LIMITS } from '../../data/expenses.data';
+import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { DecimalPipe } from '@angular/common';
+import { Category } from '../../models/expense.model';
+import { ExpenseService } from '../../services/expense.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule, DecimalPipe],
   templateUrl: './dashboard.html',
 })
 export class DashboardComponent {
 
-  // ── Source signals
-  expenses = signal<Expense[]>(SEED_EXPENSES);
-  limits = signal<Record<string, number>>(SEED_LIMITS);
-  selectedCategory = signal<string>('All');
+  // ── Inject the service
+  private expenseService = inject(ExpenseService);
+
+  // ── Expose service signals and computed directly to the template
+  budgets          = this.expenseService.budgets;
+  totals           = this.expenseService.totals;
+  filteredExpenses = this.expenseService.filteredExpenses;
+  selectedCategory = this.expenseService.selectedCategory;
+  limits           = this.expenseService.limits;
+
+  categories: Category[] = [
+    'Food', 'Transport', 'Shopping',
+    'Bills', 'Health', 'Entertainment', 'Other'
+  ];
 
   // ── Expense form
   expenseForm = new FormGroup({
@@ -52,78 +62,25 @@ export class DashboardComponent {
   get budgetCategoryControl() { return this.budgetForm.get('category'); }
   get budgetLimitControl()    { return this.budgetForm.get('limit');    }
 
-
-
-  categories: Category[] = [
-    'Food', 'Transport', 'Shopping',
-    'Bills', 'Health', 'Entertainment', 'Other'
-  ];
-
-  // ── Computed: this month's expenses only
-  thisMonthExpenses = computed(() => {
-    const month = new Date().toISOString().slice(0, 7); // "2026-05"
-    return this.expenses().filter(e => e.date.startsWith(month));
-  });
-
-  // ── Computed: spending per category
-  spendByCategory = computed(() => {
-    const result: Record<string, number> = {};
-    for (const e of this.thisMonthExpenses()) {
-      result[e.category] = (result[e.category] || 0) + e.amount;
-    }
-    return result;
-  });
-
-  // ── Computed: budget rows with alert status
-  budgets = computed<Budget[]>(() =>
-    Object.entries(this.limits()).map(([category, limit]) => {
-      const spent = this.spendByCategory()[category] || 0;
-      const percentage = Math.min((spent / limit) * 100, 100);
-      const status =
-        spent >= limit ? 'over' :
-        spent >= limit * 0.8 ? 'warning' : 'safe';
-      return { category: category as Category, limit, spent, percentage, status };
-    })
-  );
-
-  // ── Computed: summary totals for the top cards
-  totals = computed(() => {
-    const spent = this.thisMonthExpenses()
-      .reduce((sum, e) => sum + e.amount, 0);
-    const budget = Object.values(this.limits())
-      .reduce((sum, l) => sum + l, 0);
-    return { spent, budget, remaining: budget - spent };
-  });
-
-  // ── Computed: filtered list for the expense table
-  filteredExpenses = computed(() => {
-    const cat = this.selectedCategory();
-    return cat === 'All'
-      ? this.thisMonthExpenses()
-      : this.thisMonthExpenses().filter(e => e.category === cat);
-  });
-
   // ── Methods
+  onBudgetCategoryChange(category: string) {
+    const currentLimit = this.expenseService.limits()[category] || 0;
+    this.budgetForm.patchValue({ limit: currentLimit });
+  }
+
   addExpense() {
     if (this.expenseForm.invalid) return;
 
     const { title, amount, category, note } = this.expenseForm.getRawValue();
 
-    this.expenses.update(prev => [...prev, {
-      id: Date.now(),
+    this.expenseService.addExpense({
       title: title!,
       amount: amount!,
       category: category!,
-      date: new Date().toISOString().slice(0, 10),
       note: note || undefined,
-    }]);
+    });
 
     this.expenseForm.reset({ category: 'Food' });
-  }
-
-  onBudgetCategoryChange(category: string) {
-    const currentLimit = this.limits()[category] || 0;
-    this.budgetForm.patchValue({ limit: currentLimit });
   }
 
   saveBudget() {
@@ -131,16 +88,13 @@ export class DashboardComponent {
 
     const { category, limit } = this.budgetForm.getRawValue();
 
-    this.limits.update(prev => ({
-      ...prev,
-      [category!]: limit!,
-    }));
+    this.expenseService.updateLimit(category!, limit!);
 
     this.budgetForm.reset({ category: 'Food' });
     this.onBudgetCategoryChange('Food');
   }
 
   setCategory(cat: string) {
-    this.selectedCategory.set(cat);
+    this.expenseService.setCategory(cat);
   }
 }

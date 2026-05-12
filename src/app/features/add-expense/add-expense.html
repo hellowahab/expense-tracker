@@ -1,0 +1,116 @@
+<div style="max-width:480px; margin:0 auto; padding:24px; font-family:sans-serif;">
+
+  <!-- Page heading -->
+  <h1 style="font-size:22px; font-weight:600; margin-bottom:24px;">
+    Add Expense
+  </h1>
+
+  <form [formGroup]="expenseForm" (ngSubmit)="addExpense()"
+    style="display:flex; flex-direction:column; gap:20px;">
+
+    <!-- Title field -->
+    <div>
+      <label style="font-size:13px; color:#666; display:block; margin-bottom:4px;">
+        Title
+      </label>
+      <input
+        formControlName="title"
+        type="text"
+        placeholder="e.g. Groceries"
+        style="width:100%; padding:10px 12px; border:1px solid #ddd;
+               border-radius:6px; box-sizing:border-box; font-size:14px;"
+        [style.border-color]="titleControl?.invalid && titleControl?.touched
+                               ? '#e53e3e' : '#ddd'" />
+      @if (titleControl?.touched && titleControl?.errors?.['required']) {
+        <p style="font-size:12px; color:#e53e3e; margin-top:4px;">
+          Title is required
+        </p>
+      }
+      @if (titleControl?.touched && titleControl?.errors?.['minlength']) {
+        <p style="font-size:12px; color:#e53e3e; margin-top:4px;">
+          Title must be at least 3 characters
+        </p>
+      }
+    </div>
+
+    <!-- Amount field -->
+    <div>
+      <label style="font-size:13px; color:#666; display:block; margin-bottom:4px;">
+        Amount (Rs)
+      </label>
+      <input
+        formControlName="amount"
+        type="number"
+        placeholder="e.g. 1500"
+        style="width:100%; padding:10px 12px; border:1px solid #ddd;
+               border-radius:6px; box-sizing:border-box; font-size:14px;"
+        [style.border-color]="amountControl?.invalid && amountControl?.touched
+                               ? '#e53e3e' : '#ddd'" />
+      @if (amountControl?.touched && amountControl?.errors?.['required']) {
+        <p style="font-size:12px; color:#e53e3e; margin-top:4px;">
+          Amount is required
+        </p>
+      }
+      @if (amountControl?.touched && amountControl?.errors?.['min']) {
+        <p style="font-size:12px; color:#e53e3e; margin-top:4px;">
+          Amount must be at least Rs 1
+        </p>
+      }
+    </div>
+
+    <!-- Category field -->
+    <div>
+      <label style="font-size:13px; color:#666; display:block; margin-bottom:4px;">
+        Category
+      </label>
+      <select
+        formControlName="category"
+        style="width:100%; padding:10px 12px; border:1px solid #ddd;
+               border-radius:6px; font-size:14px;">
+        @for (cat of categories; track cat) {
+          <option [value]="cat">{{ cat }}</option>
+        }
+      </select>
+    </div>
+
+    <!-- Note field -->
+    <div>
+      <label style="font-size:13px; color:#666; display:block; margin-bottom:4px;">
+        Note
+        <span style="color:#aaa; font-weight:400;">(optional)</span>
+      </label>
+      <input
+        formControlName="note"
+        type="text"
+        placeholder="e.g. Weekly shop at Imtiaz"
+        style="width:100%; padding:10px 12px; border:1px solid #ddd;
+               border-radius:6px; box-sizing:border-box; font-size:14px;" />
+    </div>
+
+    <!-- Action buttons -->
+    <div style="display:flex; gap:12px;">
+
+      <button
+        type="submit"
+        [disabled]="expenseForm.invalid"
+        [style.background]="expenseForm.invalid ? '#a0aec0' : '#4f46e5'"
+        [style.cursor]="expenseForm.invalid ? 'not-allowed' : 'pointer'"
+        style="flex:1; padding:10px 24px; color:white; border:none;
+               border-radius:6px; font-size:14px; font-weight:500;">
+        Add Expense
+      </button>
+
+      <button
+        type="button"
+        (click)="cancel()"
+        style="padding:10px 24px; background:white; color:#374151;
+               border:1px solid #ddd; border-radius:6px; font-size:14px;
+               cursor:pointer;">
+        Cancel
+      </button>
+
+    </div>
+
+  </form>
+
+</div>

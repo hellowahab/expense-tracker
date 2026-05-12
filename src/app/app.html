@@ -1,1 +1,42 @@
+<!-- src/app/app.html -->
+<!-- Navigation bar -->
+<nav style="background:white; border-bottom:1px solid #eee;
+            padding:0 24px; font-family:sans-serif;">
+  <div style="max-width:720px; margin:0 auto;
+              display:flex; align-items:center; justify-content:space-between;
+              height:56px;">
+    <!-- Logo -->
+    <span style="font-size:16px; font-weight:600; color:#4f46e5;">
+      💰 ExpenseTracker
+    </span>
+    <!-- Nav links -->
+    <div style="display:flex; gap:4px;">
+      <a [routerLink]="'/dashboard'"
+         routerLinkActive="active-link"
+         style="padding:6px 14px; border-radius:6px; font-size:14px;
+                text-decoration:none; color:#374151;">
+        Dashboard
+      </a>
+      <a [routerLink]="'/expenses'"
+         routerLinkActive="active-link"
+         style="padding:6px 14px; border-radius:6px; font-size:14px;
+                text-decoration:none; color:#374151;">
+        Expenses
+      </a>
+      <a [routerLink]="'/budgets'"
+         routerLinkActive="active-link"
+         style="padding:6px 14px; border-radius:6px; font-size:14px;
+                text-decoration:none; color:#374151;">
+        Budgets
+      </a>
+      <a [routerLink]="'/add'"
+         routerLinkActive="active-link"
+         style="padding:6px 14px; border-radius:6px; font-size:14px;
+                text-decoration:none; color:white; background:#4f46e5;">
+        + Add
+      </a>
+    </div>
+  </div>
+</nav>
+<!-- Page content -->
 <router-outlet />

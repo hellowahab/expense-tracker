@@ -1,0 +1,51 @@
+<div style="max-width:720px; margin:0 auto; padding:24px; font-family:sans-serif;">
+
+  <!-- Page heading -->
+  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:24px;">
+    <h1 style="font-size:22px; font-weight:600;">Expenses</h1>
+    <span style="font-size:13px; color:#888; background:#f3f4f6;
+                 padding:4px 12px; border-radius:99px;">
+      {{ filteredExpenses().length }} expenses
+    </span>
+  </div>
+
+  <!-- Filter pills -->
+  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px;">
+    @for (cat of ['All', ...categories]; track cat) {
+      <button
+        (click)="setCategory(cat)"
+        [style.background]="selectedCategory() === cat ? '#4f46e5' : '#f3f4f6'"
+        [style.color]="selectedCategory() === cat ? 'white' : '#374151'"
+        style="padding:6px 14px; border:none; border-radius:99px;
+               cursor:pointer; font-size:13px;">
+        {{ cat }}
+      </button>
+    }
+  </div>
+
+  <!-- Expense list -->
+  <div style="display:flex; flex-direction:column; gap:8px;">
+    @for (e of filteredExpenses(); track e.id) {
+      <div style="display:flex; align-items:center; justify-content:space-between;
+                  padding:12px 16px; border:1px solid #eee; border-radius:8px;
+                  background:white;">
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <span style="font-weight:500;">{{ e.title }}</span>
+          @if (e.note) {
+            <span style="font-size:12px; color:#aaa;">{{ e.note }}</span>
+          }
+        </div>
+        <span style="font-size:12px; color:#888; background:#f3f4f6;
+                     padding:2px 8px; border-radius:99px;">{{ e.category }}</span>
+        <span style="font-size:12px; color:#aaa;">{{ e.date }}</span>
+        <span style="font-weight:600;">Rs {{ e.amount | number }}</span>
+      </div>
+    } @empty {
+      <div style="text-align:center; padding:48px 0; color:#aaa;">
+        <p style="font-size:16px; margin-bottom:8px;">No expenses yet</p>
+        <p style="font-size:13px;">Add one from the Add Expense page</p>
+      </div>
+    }
+  </div>
+
+</div>

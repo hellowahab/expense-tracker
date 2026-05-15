@@ -4,3 +4,7 @@
   background: #eef2ff !important;
   color: #4f46e5 !important;
 }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

@@ -92,24 +92,32 @@
 
       <button
         type="submit"
-        [disabled]="expenseForm.invalid"
-        [style.background]="expenseForm.invalid ? '#a0aec0' : '#4f46e5'"
-        [style.cursor]="expenseForm.invalid ? 'not-allowed' : 'pointer'"
+        [disabled]="expenseForm.invalid || isLoading()"
+        [style.background]="expenseForm.invalid || isLoading() ? '#a0aec0' : '#4f46e5'"
+        [style.cursor]="expenseForm.invalid || isLoading() ? 'not-allowed' : 'pointer'"
         style="flex:1; padding:10px 24px; color:white; border:none;
-               border-radius:6px; font-size:14px; font-weight:500;">
-        Add Expense
+              border-radius:6px; font-size:14px; font-weight:500;">
+        {{ isLoading() ? 'Adding...' : 'Add Expense' }}
       </button>
 
       <button
         type="button"
         (click)="cancel()"
+        [disabled]="isLoading()"
         style="padding:10px 24px; background:white; color:#374151;
-               border:1px solid #ddd; border-radius:6px; font-size:14px;
-               cursor:pointer;">
+              border:1px solid #ddd; border-radius:6px; font-size:14px;
+              cursor:pointer;">
         Cancel
       </button>
 
     </div>
+
+    <!-- Error message -->
+    @if (error()) {
+      <p style="font-size:13px; color:#c53030; margin-top:8px;">
+        ⚠️ {{ error() }}
+      </p>
+    }
 
   </form>
 

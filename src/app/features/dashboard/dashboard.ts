@@ -21,6 +21,8 @@ export class DashboardComponent {
   filteredExpenses = this.expenseService.filteredExpenses;
   selectedCategory = this.expenseService.selectedCategory;
   limits           = this.expenseService.limits;
+  isLoading        = this.expenseService.isLoading;   
+  error            = this.expenseService.error;       
 
   categories: Category[] = [
     'Food', 'Transport', 'Shopping',

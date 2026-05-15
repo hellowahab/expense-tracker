@@ -16,6 +16,10 @@ export class AddExpenseComponent {
   private expenseService = inject(ExpenseService);
   private router         = inject(Router);
 
+  isLoading        = this.expenseService.isLoading;   
+  error            = this.expenseService.error;       
+
+
   categories: Category[] = [
     'Food', 'Transport', 'Shopping',
     'Bills', 'Health', 'Entertainment', 'Other'

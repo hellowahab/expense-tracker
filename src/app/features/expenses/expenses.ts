@@ -17,7 +17,9 @@ export class ExpensesComponent {
   // ── Expose signals
   filteredExpenses = this.expenseService.filteredExpenses;
   selectedCategory = this.expenseService.selectedCategory;
-
+  isLoading        = this.expenseService.isLoading;   
+  error            = this.expenseService.error;   
+  
   categories: Category[] = [
     'Food', 'Transport', 'Shopping',
     'Bills', 'Health', 'Entertainment', 'Other'

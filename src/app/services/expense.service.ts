@@ -1,5 +1,3 @@
-// src/app/services/expense.service.ts
-
 import { Injectable, signal, computed, inject, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -55,51 +53,37 @@ export class ExpenseService {
 
   constructor() {
 
-    // ── effect() — auto save expenses to localStorage on every change
-    effect(() => {
-      localStorage.setItem('et_expenses', JSON.stringify(this.expenses()));
-    });
+  effect(() => {
+    localStorage.setItem('et_expenses', JSON.stringify(this.expenses()));
+  });
 
-    // ── effect() — auto save limits to localStorage on every change
-    effect(() => {
-      localStorage.setItem('et_limits', JSON.stringify(this.limits()));
-    });
+  effect(() => {
+    localStorage.setItem('et_limits', JSON.stringify(this.limits()));
+  });
 
-    // ── Load from API only if localStorage was empty
-    this.expensesRefresh$.pipe(
-      switchMap(() => {
-        if (this.expenses().length > 0) return of(null); // localStorage had data
-        this.isLoading.set(true);
-        return this.http.get<Expense[]>(`${this.apiUrl}/expenses`).pipe(
-          tap(() => this.isLoading.set(false)),
-          catchError(() => {
-            this.isLoading.set(false);
-            this.error.set('Failed to load expenses.');
-            return of(null);
-          })
-        );
-      })
-    ).subscribe(expenses => {
-      if (expenses) this.expenses.set(expenses);
-    });
+  // load from API only if localStorage was empty
+  this.expensesRefresh$.pipe(
+    switchMap(() => {
+      if (this.expenses().length > 0) return of(null);
+      return this.http.get<Expense[]>(`${this.apiUrl}/expenses`).pipe(
+        catchError(() => of(null))
+      );
+    })
+  ).subscribe(expenses => {
+    if (expenses) this.expenses.set(expenses);
+  });
 
-    this.limitsRefresh$.pipe(
-      switchMap(() => {
-        if (Object.keys(this.limits()).length > 0) return of(null); // localStorage had data
-        this.isLoading.set(true);
-        return this.http.get<Record<string, number>>(`${this.apiUrl}/limits`).pipe(
-          tap(() => this.isLoading.set(false)),
-          catchError(() => {
-            this.isLoading.set(false);
-            this.error.set('Failed to load limits.');
-            return of(null);
-          })
-        );
-      })
-    ).subscribe(limits => {
-      if (limits) this.limits.set(limits);
-    });
-  }
+  this.limitsRefresh$.pipe(
+    switchMap(() => {
+      if (Object.keys(this.limits()).length > 0) return of(null);
+      return this.http.get<Record<string, number>>(`${this.apiUrl}/limits`).pipe(
+        catchError(() => of(null))
+      );
+    })
+  ).subscribe(limits => {
+    if (limits) this.limits.set(limits);
+  });
+}
 
   // ── Computed signals
   thisMonthExpenses = computed(() => {
@@ -147,9 +131,10 @@ export class ExpenseService {
     date: new Date().toISOString().slice(0, 10),
   };
 
+  // update signal immediately — optimistic update
   this.expenses.update(prev => [...prev, newExpense]);
 
-  // only call API in development
+  // sync to API if available — interceptors handle loading + errors
   if (this.apiUrl) {
     this.http.post<Expense>(`${this.apiUrl}/expenses`, newExpense)
       .pipe(catchError(() => of(null)))
@@ -158,9 +143,10 @@ export class ExpenseService {
 }
 
 updateLimit(category: string, limit: number) {
+  // update signal immediately — optimistic update
   this.limits.update(prev => ({ ...prev, [category]: limit }));
 
-  // only call API in development
+  // sync to API if available — interceptors handle loading + errors
   if (this.apiUrl) {
     this.http.patch<Record<string, number>>(
       `${this.apiUrl}/limits`,

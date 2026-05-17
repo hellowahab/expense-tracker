@@ -3,11 +3,13 @@ import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angula
 import { DecimalPipe } from '@angular/common';
 import { ExpenseService } from '../../services/expense.service';
 import { Category } from '../../models/expense.model';
+import { PkrCurrencyPipe } from '../../pipes/pkr-currency.pipe';
+import { CategoryIconPipe } from '../../pipes/category-icon.pipe';
 
 @Component({
   selector: 'app-budgets',
   standalone: true,
-  imports: [ReactiveFormsModule, DecimalPipe],
+  imports: [ReactiveFormsModule, PkrCurrencyPipe, CategoryIconPipe],
   templateUrl: './budgets.html',
 })
 export class BudgetsComponent {

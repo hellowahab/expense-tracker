@@ -3,11 +3,14 @@ import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angula
 import { DecimalPipe } from '@angular/common';
 import { Category } from '../../models/expense.model';
 import { ExpenseService } from '../../services/expense.service';
+import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
+import { PkrCurrencyPipe } from '../../pipes/pkr-currency.pipe';
+import { CategoryIconPipe } from '../../pipes/category-icon.pipe';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [ReactiveFormsModule, DecimalPipe],
+  imports: [ReactiveFormsModule, DecimalPipe, PkrCurrencyPipe, CategoryIconPipe],
   templateUrl: './dashboard.html',
 })
 export class DashboardComponent {

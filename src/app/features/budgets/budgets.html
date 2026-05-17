@@ -36,37 +36,37 @@
   <!-- Current budget bars -->
   <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:40px;">
     @for (b of budgets(); track b.category) {
-      <div>
+  <div>
 
-        <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-          <span style="font-weight:500;">{{ b.category }}</span>
-          <span style="font-size:13px; color:#666;">
-            Rs {{ b.spent | number }} / Rs {{ b.limit | number }}
-          </span>
-        </div>
+    <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+      <span style="font-weight:500;">{{ b.category | categoryIcon }}</span>
+      <span style="font-size:13px; color:#666;">
+        {{ b.spent | pkrCurrency }} / {{ b.limit | pkrCurrency }}
+      </span>
+    </div>
 
-        <div style="height:8px; background:#eee; border-radius:4px; overflow:hidden;">
-          <div
-            [style.width.%]="b.percentage"
-            [style.background]="b.status === 'over'    ? '#e53e3e' :
-                                b.status === 'warning' ? '#dd6b20' : '#38a169'"
-            style="height:100%; border-radius:4px; transition:width .3s;">
-          </div>
-        </div>
-
-        @if (b.status === 'warning') {
-          <p style="font-size:12px; color:#dd6b20; margin-top:4px;">
-            ⚠️ 80% of budget used
-          </p>
-        }
-        @if (b.status === 'over') {
-          <p style="font-size:12px; color:#e53e3e; margin-top:4px;">
-            🚨 Budget exceeded!
-          </p>
-        }
-
+    <div style="height:8px; background:#eee; border-radius:4px; overflow:hidden;">
+      <div
+        [style.width.%]="b.percentage"
+        [style.background]="b.status === 'over'    ? '#e53e3e' :
+                            b.status === 'warning' ? '#dd6b20' : '#38a169'"
+        style="height:100%; border-radius:4px; transition:width .3s;">
       </div>
+    </div>
+
+    @if (b.status === 'warning') {
+      <p style="font-size:12px; color:#dd6b20; margin-top:4px;">
+        ⚠️ 80% of budget used
+      </p>
     }
+    @if (b.status === 'over') {
+      <p style="font-size:12px; color:#e53e3e; margin-top:4px;">
+        🚨 Budget exceeded!
+      </p>
+    }
+
+  </div>
+}
   </div>
 
   <!-- Edit budget form -->

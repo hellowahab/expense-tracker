@@ -2,11 +2,15 @@ import { Component, inject } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { ExpenseService } from '../../services/expense.service';
 import { Category } from '../../models/expense.model';
+import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
+import { PkrCurrencyPipe } from '../../pipes/pkr-currency.pipe';
+import { CategoryIconPipe } from '../../pipes/category-icon.pipe';
+
 
 @Component({
   selector: 'app-expenses',
   standalone: true,
-  imports: [DecimalPipe],
+  imports: [ TimeAgoPipe, PkrCurrencyPipe, CategoryIconPipe],
   templateUrl: 'expenses.html',
 })
 export class ExpensesComponent {

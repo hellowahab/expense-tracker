@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ExpenseService } from '../../services/expense.service';
+import { ExpenseStore } from '../../store/expense.store';
 import { Category } from '../../models/expense.model';
 
 @Component({
@@ -12,20 +12,17 @@ import { Category } from '../../models/expense.model';
 })
 export class AddExpenseComponent {
 
-  // ── Inject service and router
-  private expenseService = inject(ExpenseService);
-  private router         = inject(Router);
+  private store  = inject(ExpenseStore);
+  private router = inject(Router);
 
-  isLoading        = this.expenseService.isLoading;   
-  error            = this.expenseService.error;       
-
+  isLoading = this.store.isLoading;
+  error     = this.store.error;
 
   categories: Category[] = [
     'Food', 'Transport', 'Shopping',
     'Bills', 'Health', 'Entertainment', 'Other'
   ];
 
-  // ── Add expense form
   expenseForm = new FormGroup({
     title: new FormControl('', [
       Validators.required,
@@ -46,19 +43,15 @@ export class AddExpenseComponent {
   get categoryControl() { return this.expenseForm.get('category'); }
   get noteControl()     { return this.expenseForm.get('note');     }
 
-  // ── Methods
   addExpense() {
     if (this.expenseForm.invalid) return;
-
     const { title, amount, category, note } = this.expenseForm.getRawValue();
-
-    this.expenseService.addExpense({
+    this.store.addExpense({
       title:    title!,
       amount:   amount!,
       category: category!,
       note:     note || undefined,
     });
-
     this.router.navigate(['/expenses']);
   }
 

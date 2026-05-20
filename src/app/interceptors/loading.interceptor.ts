@@ -1,19 +1,15 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { finalize } from 'rxjs';
-import { ExpenseService } from '../services/expense.service';
+import { ExpenseStore } from '../store/expense.store';
 
 export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
 
-  const expenseService = inject(ExpenseService);
+  const store = inject(ExpenseStore);
 
-  // set loading true before request goes out
-  expenseService.isLoading.set(true);
+  store.setLoading(true);
 
   return next(req).pipe(
-    finalize(() => {
-      // set loading false when response arrives — success or error
-      expenseService.isLoading.set(false);
-    })
+    finalize(() => store.setLoading(false))
   );
 };

@@ -1,19 +1,19 @@
 import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { ExpenseService } from '../services/expense.service';
+import { ExpenseStore } from '../store/expense.store';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
-  const expenseService = inject(ExpenseService);
+  const store = inject(ExpenseStore);
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
 
-      // clear any previous error first
-      expenseService.error.set(null);
+      // clear any previous error
+      store.clearError();
 
-      // build a user friendly message based on status code
+      // build user friendly message
       let message = 'Something went wrong. Please try again.';
 
       if (error.status === 0) {
@@ -30,13 +30,12 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         message = 'Server error. Please try again later.';
       }
 
-      // set the error message on the service
-      expenseService.error.set(message);
+      // set error via store method
+      store.setError(message);
 
       // auto clear after 4 seconds
-      setTimeout(() => expenseService.error.set(null), 4000);
+      setTimeout(() => store.clearError(), 4000);
 
-      // re-throw so the Observable chain still errors out
       return throwError(() => error);
     })
   );

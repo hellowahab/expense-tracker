@@ -20,7 +20,6 @@
               border-radius:8px;">
     <span style="color:#c53030; font-size:14px;">⚠️ {{ error() }}</span>
     <button
-      (click)="error.set(null)"
       style="background:none; border:none; color:#c53030;
              cursor:pointer; font-size:18px; padding:0 4px;">
       ✕
@@ -62,35 +61,43 @@
   <!-- Expense list -->
 <div style="display:flex; flex-direction:column; gap:8px;">
   @for (e of filteredExpenses(); track e.id) {
-    <div style="display:flex; align-items:center; justify-content:space-between;
-                padding:12px 16px; border:1px solid #eee; border-radius:8px;
-                background:white;">
+  <div style="display:flex; align-items:center; justify-content:space-between;
+              padding:12px 16px; border:1px solid #eee; border-radius:8px;
+              background:white;">
 
-      <!-- Left — title and note -->
-      <div style="display:flex; flex-direction:column; gap:2px; flex:1;">
-        <span style="font-weight:500;">{{ e.title }}</span>
-        @if (e.note) {
-          <span style="font-size:12px; color:#aaa;">{{ e.note }}</span>
-        }
-      </div>
-
-      <!-- Category with icon -->
-      <span style="font-size:12px; color:#888; background:#f3f4f6;
-                   padding:2px 8px; border-radius:99px; margin:0 12px;">
-        {{ e.category | categoryIcon }}
-      </span>
-
-      <!-- Time ago instead of raw date -->
-      <span style="font-size:12px; color:#aaa; margin-right:12px;">
-        {{ e.date | timeAgo }}
-      </span>
-
-      <!-- Formatted currency -->
-      <span style="font-weight:600;">
-        {{ e.amount | pkrCurrency }}
-      </span>
-
+    <!-- left — title and note -->
+    <div style="display:flex; flex-direction:column; gap:2px; flex:1;">
+      <span style="font-weight:500;">{{ e.title }}</span>
+      @if (e.note) {
+        <span style="font-size:12px; color:#aaa;">{{ e.note }}</span>
+      }
     </div>
+
+    <!-- category -->
+    <span style="font-size:12px; color:#888; background:#f3f4f6;
+                 padding:2px 8px; border-radius:99px; margin:0 12px;">
+      {{ e.category | categoryIcon }}
+    </span>
+
+    <!-- time ago -->
+    <span style="font-size:12px; color:#aaa; margin-right:12px;">
+      {{ e.date | timeAgo }}
+    </span>
+
+    <!-- amount -->
+    <span style="font-weight:600; margin-right:12px;">
+      {{ e.amount | pkrCurrency }}
+    </span>
+
+    <!-- delete button — new in week 8 -->
+    <button
+      (click)="deleteExpense(e.id)"
+      style="background:none; border:none; color:#e53e3e;
+             cursor:pointer; font-size:16px; padding:4px 8px;">
+      🗑️
+    </button>
+
+  </div>
   } @empty {
     <div style="text-align:center; padding:48px 0; color:#aaa;">
       <p style="font-size:16px; margin-bottom:8px;">No expenses yet</p>

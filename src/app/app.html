@@ -1,42 +1,75 @@
-<!-- src/app/app.html -->
 <!-- Navigation bar -->
 <nav style="background:white; border-bottom:1px solid #eee;
             padding:0 24px; font-family:sans-serif;">
   <div style="max-width:720px; margin:0 auto;
               display:flex; align-items:center; justify-content:space-between;
               height:56px;">
+
     <!-- Logo -->
     <span style="font-size:16px; font-weight:600; color:#4f46e5;">
       💰 ExpenseTracker
     </span>
+
     <!-- Nav links -->
-    <div style="display:flex; gap:4px;">
-      <a [routerLink]="'/dashboard'"
-         routerLinkActive="active-link"
-         style="padding:6px 14px; border-radius:6px; font-size:14px;
-                text-decoration:none; color:#374151;">
+    <div style="display:flex; gap:4px; align-items:center;">
+
+      
+      <a  [routerLink]="'/dashboard'"
+        routerLinkActive="active-link"
+        style="padding:6px 14px; border-radius:6px; font-size:14px;
+               text-decoration:none; color:#374151;">
         Dashboard
       </a>
-      <a [routerLink]="'/expenses'"
-         routerLinkActive="active-link"
-         style="padding:6px 14px; border-radius:6px; font-size:14px;
-                text-decoration:none; color:#374151;">
+
+      
+      <a  [routerLink]="'/expenses'"
+        routerLinkActive="active-link"
+        style="padding:6px 14px; border-radius:6px; font-size:14px;
+               text-decoration:none; color:#374151;">
         Expenses
       </a>
-      <a [routerLink]="'/budgets'"
-         routerLinkActive="active-link"
-         style="padding:6px 14px; border-radius:6px; font-size:14px;
-                text-decoration:none; color:#374151;">
+
+      
+      <a  [routerLink]="'/budgets'"
+        routerLinkActive="active-link"
+        style="padding:6px 14px; border-radius:6px; font-size:14px;
+               text-decoration:none; color:#374151;">
         Budgets
       </a>
-      <a [routerLink]="'/add'"
-         routerLinkActive="active-link"
-         style="padding:6px 14px; border-radius:6px; font-size:14px;
-                text-decoration:none; color:white; background:#4f46e5;">
-        + Add
-      </a>
+
+      <!-- only show + Add if logged in -->
+      @if (authService.isLoggedIn()) {
+        
+        <a  [routerLink]="'/add'"
+          routerLinkActive="active-link"
+          style="padding:6px 14px; border-radius:6px; font-size:14px;
+                 text-decoration:none; color:white; background:#4f46e5;">
+          + Add
+        </a>
+      }
+
+      <!-- auth button — login or logout -->
+      @if (authService.isLoggedIn()) {
+        <button
+          (click)="logout()"
+          style="padding:6px 14px; background:white; color:#e53e3e;
+                 border:1px solid #fed7d7; border-radius:6px;
+                 font-size:14px; cursor:pointer; margin-left:4px;">
+          Logout
+        </button>
+      } @else {
+        
+        <a  [routerLink]="'/login'"
+          routerLinkActive="active-link"
+          style="padding:6px 14px; border-radius:6px; font-size:14px;
+                 text-decoration:none; color:#4f46e5; border:1px solid #c7d2fe;">
+          Login
+        </a>
+      }
+
     </div>
   </div>
 </nav>
+
 <!-- Page content -->
 <router-outlet />

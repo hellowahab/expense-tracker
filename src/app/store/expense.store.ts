@@ -136,6 +136,56 @@ export const ExpenseStore = signalStore(
         }
       },
 
+      // ── Validate voice-parsed data, then add the expense
+      createExpenseFromVoice(parsed: {
+        title:    string;
+        amount:   number | null;
+        category: Category;
+        date:     string;
+      }): { success: boolean; error?: string } {
+
+        const title = (parsed.title ?? '').trim();
+        if (title.length < 3) {
+          return { success: false, error: "Couldn't understand the expense title." };
+        }
+        if (
+          parsed.amount === null ||
+          !Number.isFinite(parsed.amount) ||
+          parsed.amount < 1
+        ) {
+          return { success: false, error: "Couldn't understand the amount." };
+        }
+
+        const categories: Category[] = [
+          'Food', 'Transport', 'Shopping',
+          'Bills', 'Health', 'Entertainment', 'Other',
+        ];
+        if (!categories.includes(parsed.category)) {
+          return { success: false, error: 'Unknown category.' };
+        }
+
+        const date = /^\d{4}-\d{2}-\d{2}$/.test(parsed.date)
+          ? parsed.date
+          : new Date().toISOString().slice(0, 10);
+
+        const newExpense: Expense = {
+          id:       Date.now(),
+          title,
+          amount:   parsed.amount,
+          category: parsed.category,
+          date,
+        };
+        const updated = [...store.expenses(), newExpense];
+        patchState(store, { expenses: updated });
+        saveExpenses(updated);
+        if (apiUrl) {
+          http.post<Expense>(`${apiUrl}/expenses`, newExpense)
+            .pipe(catchError(() => of(null)))
+            .subscribe();
+        }
+        return { success: true };
+      },
+
       deleteExpense(id: number) {
         const updated = store.expenses().filter(e => e.id !== id);
         patchState(store, { expenses: updated });

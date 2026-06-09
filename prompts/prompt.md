@@ -2,8 +2,7 @@
 
 ### Warm up prompt for claude Code
 
-"We're adding a new feature
-creating expenses by voice.
+"We're adding a new feature creating expenses by voice.
 Read CLAUDE.md and confirm our conventions.
 Then read
 src/app/features/add-expense/add-expense.ts

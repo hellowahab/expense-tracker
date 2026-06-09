@@ -1,9 +1,133 @@
+<!-- Pulsing animation for the active mic button -->
+<style>
+  @keyframes micPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.6); }
+    70%  { box-shadow: 0 0 0 14px rgba(229, 62, 62, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(229, 62, 62, 0); }
+  }
+  .mic-active {
+    animation: micPulse 1.4s infinite;
+  }
+</style>
+
 <div style="max-width:480px; margin:0 auto; padding:24px; font-family:sans-serif;">
 
   <!-- Page heading -->
   <h1 style="font-size:22px; font-weight:600; margin-bottom:24px;">
     Add Expense
   </h1>
+
+  <!-- Voice capture — hidden entirely when the browser has no support -->
+  @if (voiceSupported()) {
+    <div style="margin-bottom:24px;">
+
+      <button
+        type="button"
+        (click)="toggleVoice()"
+        [class.mic-active]="isListening()"
+        [style.background]="isListening() ? '#e53e3e' : '#4f46e5'"
+        style="display:flex; align-items:center; justify-content:center; gap:8px;
+               width:100%; padding:12px; color:white; border:none; border-radius:6px;
+               font-size:14px; font-weight:500; cursor:pointer;">
+        <span style="font-size:18px;">🎤</span>
+        {{ isListening() ? 'Listening… tap to stop' : 'Add by voice' }}
+      </button>
+
+      <!-- Live transcript while speaking -->
+      @if (isListening() && interimTranscript()) {
+        <p style="font-size:14px; color:#4f46e5; margin-top:10px; font-style:italic;">
+          {{ interimTranscript() }}
+        </p>
+      }
+
+      <!-- Final captured phrase -->
+      @if (!isListening() && voiceTranscript()) {
+        <p style="font-size:14px; color:#374151; margin-top:10px;">
+          Heard: "{{ voiceTranscript() }}"
+        </p>
+      }
+
+      <!-- Voice error (user-friendly) -->
+      @if (voiceError()) {
+        <p style="font-size:13px; color:#c53030; margin-top:10px;">
+          ⚠️ {{ voiceError() }}
+        </p>
+      }
+
+    </div>
+  }
+
+  <!-- Confirmation card — review parsed fields before saving -->
+  @if (parsed(); as p) {
+    <div style="margin-bottom:24px; padding:16px; border:1px solid #c7d2fe;
+                background:#eef2ff; border-radius:8px;">
+
+      <p style="font-size:13px; color:#4f46e5; font-weight:600; margin:0 0 12px;">
+        Here's what I understood — confirm to save
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:8px; font-size:14px;">
+        <div style="display:flex; justify-content:space-between;">
+          <span style="color:#666;">Title</span>
+          @if (p.title) {
+            <span style="color:#111; font-weight:500;">{{ p.title }}</span>
+          } @else {
+            <span style="color:#c53030;">Not detected</span>
+          }
+        </div>
+        <div style="display:flex; justify-content:space-between;">
+          <span style="color:#666;">Amount</span>
+          @if (p.amount !== null) {
+            <span style="color:#111; font-weight:500;">{{ p.amount | pkrCurrency }}</span>
+          } @else {
+            <span style="color:#c53030;">Not detected</span>
+          }
+        </div>
+        <div style="display:flex; justify-content:space-between;">
+          <span style="color:#666;">Category</span>
+          <span style="color:#111; font-weight:500;">{{ p.category }}</span>
+        </div>
+        <div style="display:flex; justify-content:space-between;">
+          <span style="color:#666;">Date</span>
+          <span style="color:#111; font-weight:500;">{{ p.date }}</span>
+        </div>
+      </div>
+
+      <!-- Save error from the store's validation -->
+      @if (saveError()) {
+        <p style="font-size:13px; color:#c53030; margin:12px 0 0;">
+          ⚠️ {{ saveError() }}
+        </p>
+      }
+
+      <div style="display:flex; gap:10px; margin-top:16px;">
+        <button
+          type="button"
+          (click)="confirmVoiceExpense()"
+          style="flex:1; padding:10px; background:#4f46e5; color:white; border:none;
+                 border-radius:6px; font-size:14px; font-weight:500; cursor:pointer;">
+          Save expense
+        </button>
+        <button
+          type="button"
+          (click)="editVoiceInForm()"
+          style="flex:1; padding:10px; background:white; color:#4f46e5;
+                 border:1px solid #c7d2fe; border-radius:6px; font-size:14px;
+                 font-weight:500; cursor:pointer;">
+          Edit in form
+        </button>
+        <button
+          type="button"
+          (click)="dismissVoiceCard()"
+          style="padding:10px 14px; background:white; color:#374151;
+                 border:1px solid #ddd; border-radius:6px; font-size:14px;
+                 cursor:pointer;">
+          Cancel
+        </button>
+      </div>
+
+    </div>
+  }
 
   <form [formGroup]="expenseForm" (ngSubmit)="addExpense()"
     style="display:flex; flex-direction:column; gap:20px;">

@@ -1,0 +1,107 @@
+{
+  "configVersion": 1,
+  "timestamp": 1781093498107,
+  "index": "/expense-tracker/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/expense-tracker/chunk-4MPZUP3S.js",
+        "/expense-tracker/chunk-AVQ4J5XR.js",
+        "/expense-tracker/chunk-CHH4YZEK.js",
+        "/expense-tracker/chunk-DLBKO63O.js",
+        "/expense-tracker/chunk-EDXIA3RM.js",
+        "/expense-tracker/chunk-JBFITWPQ.js",
+        "/expense-tracker/chunk-JEQ2B2TO.js",
+        "/expense-tracker/chunk-MGRBMRZB.js",
+        "/expense-tracker/chunk-MM3K6SXZ.js",
+        "/expense-tracker/chunk-QPH366DX.js",
+        "/expense-tracker/chunk-SS3AP6EK.js",
+        "/expense-tracker/chunk-WXA2HCVZ.js",
+        "/expense-tracker/chunk-XKPV7RQV.js",
+        "/expense-tracker/favicon.ico",
+        "/expense-tracker/index.html",
+        "/expense-tracker/main-7NJI42WO.js",
+        "/expense-tracker/manifest.webmanifest",
+        "/expense-tracker/styles-5INURTSO.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/expense-tracker/brand/logo.jpeg",
+        "/expense-tracker/icons/icon-128x128.png",
+        "/expense-tracker/icons/icon-144x144.png",
+        "/expense-tracker/icons/icon-152x152.png",
+        "/expense-tracker/icons/icon-180x180.png",
+        "/expense-tracker/icons/icon-192x192.png",
+        "/expense-tracker/icons/icon-384x384.png",
+        "/expense-tracker/icons/icon-512x512.png",
+        "/expense-tracker/icons/icon-72x72.png",
+        "/expense-tracker/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/expense-tracker/brand/logo.jpeg": "3e3020fd75888dca336e5aa75d597ac5f432d3a0",
+    "/expense-tracker/chunk-4MPZUP3S.js": "4c81538ee8c2ad395c9ebb3a0ca61a23a5aefa67",
+    "/expense-tracker/chunk-AVQ4J5XR.js": "453110716519c16701b9db0cbee9390be36aa966",
+    "/expense-tracker/chunk-CHH4YZEK.js": "c16d1f7da050496a30465e4c4df6e438f4ceac97",
+    "/expense-tracker/chunk-DLBKO63O.js": "1d5ef0d09aca194ae14bc9468e8925ecbea4a2cf",
+    "/expense-tracker/chunk-EDXIA3RM.js": "7fafcbc3c9ec75fcddf8f6c538de45b4c4bf0bc5",
+    "/expense-tracker/chunk-JBFITWPQ.js": "3b0bf5d1187f81a5afb8c5b4dd7062636cd9d925",
+    "/expense-tracker/chunk-JEQ2B2TO.js": "d8b368090437a332ec516a63a7578af42897cd65",
+    "/expense-tracker/chunk-MGRBMRZB.js": "02ced28f403b5626aae9962ca519a85c8c303705",
+    "/expense-tracker/chunk-MM3K6SXZ.js": "15867080286993f3bd75196b6e26adaf297d991e",
+    "/expense-tracker/chunk-QPH366DX.js": "f5738a86b1a4039f8b07381cbf59811102973438",
+    "/expense-tracker/chunk-SS3AP6EK.js": "b0feb382301a6bdc848632f6dffc199453fced1e",
+    "/expense-tracker/chunk-WXA2HCVZ.js": "9eab7d979b6e6bd1e804fe34933cbbd19c2e5aa8",
+    "/expense-tracker/chunk-XKPV7RQV.js": "bcf32c50b8c424dc3433eb92504e129dc93daf66",
+    "/expense-tracker/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "/expense-tracker/icons/icon-128x128.png": "4b716a37c8a2af0bf2dae96f8895680c84135c39",
+    "/expense-tracker/icons/icon-144x144.png": "64848b5e9f0fd5705397e6ff192d1ac5a19a21a7",
+    "/expense-tracker/icons/icon-152x152.png": "ace923365d0a75994f7e22bb5c010bad6af12a60",
+    "/expense-tracker/icons/icon-180x180.png": "c6afd8333b5aedf2888d3b6ebe077ada725172f0",
+    "/expense-tracker/icons/icon-192x192.png": "33b7f61e8ae5c24a52e33d13e54104431e5ab7c0",
+    "/expense-tracker/icons/icon-384x384.png": "6f99421be9af96047c816898071ac085ffded7e1",
+    "/expense-tracker/icons/icon-512x512.png": "bc6391205f37bfa50825d270aee9781f7dc86ce0",
+    "/expense-tracker/icons/icon-72x72.png": "804ae202fc58095fc15482d1cbd49037b029d21d",
+    "/expense-tracker/icons/icon-96x96.png": "808fc2aa3c04e72d5755739f41192ab67213d39d",
+    "/expense-tracker/index.html": "86d09e3054f327c95e466ddc0afe65498969f19c",
+    "/expense-tracker/main-7NJI42WO.js": "127bb8880c54a867669dc41b320dd5743c54acbc",
+    "/expense-tracker/manifest.webmanifest": "cf5cd78f57d5f4740026763308cd9c3ffa20ac03",
+    "/expense-tracker/styles-5INURTSO.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}

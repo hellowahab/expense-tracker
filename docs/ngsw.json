@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1781093498107,
+  "timestamp": 1781162040982,
   "index": "/expense-tracker/index.html",
   "assetGroups": [
     {
@@ -49,7 +49,11 @@
         "/expense-tracker/icons/icon-384x384.png",
         "/expense-tracker/icons/icon-512x512.png",
         "/expense-tracker/icons/icon-72x72.png",
-        "/expense-tracker/icons/icon-96x96.png"
+        "/expense-tracker/icons/icon-96x96.png",
+        "/expense-tracker/icons/icon-maskable-192x192.png",
+        "/expense-tracker/icons/icon-maskable-512x512.png",
+        "/expense-tracker/screenshots/screenshot-mobile.png",
+        "/expense-tracker/screenshots/screenshot-wide.png"
       ],
       "patterns": []
     }
@@ -71,18 +75,22 @@
     "/expense-tracker/chunk-WXA2HCVZ.js": "9eab7d979b6e6bd1e804fe34933cbbd19c2e5aa8",
     "/expense-tracker/chunk-XKPV7RQV.js": "bcf32c50b8c424dc3433eb92504e129dc93daf66",
     "/expense-tracker/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
-    "/expense-tracker/icons/icon-128x128.png": "4b716a37c8a2af0bf2dae96f8895680c84135c39",
-    "/expense-tracker/icons/icon-144x144.png": "64848b5e9f0fd5705397e6ff192d1ac5a19a21a7",
-    "/expense-tracker/icons/icon-152x152.png": "ace923365d0a75994f7e22bb5c010bad6af12a60",
-    "/expense-tracker/icons/icon-180x180.png": "c6afd8333b5aedf2888d3b6ebe077ada725172f0",
-    "/expense-tracker/icons/icon-192x192.png": "33b7f61e8ae5c24a52e33d13e54104431e5ab7c0",
-    "/expense-tracker/icons/icon-384x384.png": "6f99421be9af96047c816898071ac085ffded7e1",
-    "/expense-tracker/icons/icon-512x512.png": "bc6391205f37bfa50825d270aee9781f7dc86ce0",
-    "/expense-tracker/icons/icon-72x72.png": "804ae202fc58095fc15482d1cbd49037b029d21d",
-    "/expense-tracker/icons/icon-96x96.png": "808fc2aa3c04e72d5755739f41192ab67213d39d",
+    "/expense-tracker/icons/icon-128x128.png": "ae9fe559f9d90ff909ca3437d746bd55aeb9cf5d",
+    "/expense-tracker/icons/icon-144x144.png": "de4d4d1bc00aab4fa8ee470aafa193c3af1f8d17",
+    "/expense-tracker/icons/icon-152x152.png": "0646e39029c7895882d481970d600f9a4c9ec9f0",
+    "/expense-tracker/icons/icon-180x180.png": "2e43d33507f7390ac7e33e6467f509ab44041722",
+    "/expense-tracker/icons/icon-192x192.png": "31d44447c51267897179c65542c849cd0c461135",
+    "/expense-tracker/icons/icon-384x384.png": "cf74fbee732cfaf039561930dc4515f085ca740a",
+    "/expense-tracker/icons/icon-512x512.png": "55ca14f956a554d38992d001618b589c96ef0700",
+    "/expense-tracker/icons/icon-72x72.png": "4c777932dc2c98c9bd03391770cb4cbe667953b4",
+    "/expense-tracker/icons/icon-96x96.png": "99a7115c9a81f3d0b6209924cba4bc01789b5d1e",
+    "/expense-tracker/icons/icon-maskable-192x192.png": "a46a259e636f3c708aebcc40730bc1ad8774e55a",
+    "/expense-tracker/icons/icon-maskable-512x512.png": "d563f1731e6498ad0a432ab2a93ef596469ce915",
     "/expense-tracker/index.html": "86d09e3054f327c95e466ddc0afe65498969f19c",
     "/expense-tracker/main-7NJI42WO.js": "127bb8880c54a867669dc41b320dd5743c54acbc",
-    "/expense-tracker/manifest.webmanifest": "cf5cd78f57d5f4740026763308cd9c3ffa20ac03",
+    "/expense-tracker/manifest.webmanifest": "8af79627b0242ce2c6bfef11e346368470e36abd",
+    "/expense-tracker/screenshots/screenshot-mobile.png": "d44c20d07a6f8d9c4b961d4d49c7ede362fb0beb",
+    "/expense-tracker/screenshots/screenshot-wide.png": "83f82823e8758146c5b8a678384a83aaf74fc049",
     "/expense-tracker/styles-5INURTSO.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
   },
   "navigationUrls": [

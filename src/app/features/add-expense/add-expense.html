@@ -57,6 +57,12 @@
     </div>
   }
 
+  <!-- Receipt capture — sits next to voice; emits a parsed result into the
+       same confirmation card below -->
+  <div style="margin-bottom:24px;">
+    <app-receipt-capture (parsed)="onReceiptParsed($event)" />
+  </div>
+
   <!-- Confirmation card — review parsed fields before saving -->
   @if (parsed(); as p) {
     <div style="margin-bottom:24px; padding:16px; border:1px solid #c7d2fe;

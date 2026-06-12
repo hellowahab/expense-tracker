@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { ExpenseStore } from '../../store/expense.store';
 import { VoiceCaptureService } from '../../services/voice-capture.service';
 import { PkrCurrencyPipe } from '../../pipes/pkr-currency.pipe';
+import { ReceiptCaptureComponent } from '../../components/receipt-capture/receipt-capture';
 import { parseVoiceExpense, ParsedExpense } from '../../utils/voice-parser';
 import { Category } from '../../models/expense.model';
 
 @Component({
   selector: 'app-add-expense',
   standalone: true,
-  imports: [ReactiveFormsModule, PkrCurrencyPipe],
+  imports: [ReactiveFormsModule, PkrCurrencyPipe, ReceiptCaptureComponent],
   templateUrl: './add-expense.html',
 })
 export class AddExpenseComponent {
@@ -83,6 +84,13 @@ export class AddExpenseComponent {
 
   cancel() {
     this.router.navigate(['/expenses']);
+  }
+
+  // ── Receipt OCR finished — route its result into the SAME confirmation
+  //    card the voice flow uses (review → Save / Edit in form / Cancel)
+  onReceiptParsed(parsed: ParsedExpense) {
+    this.saveError.set(null);
+    this.parsed.set(parsed);
   }
 
   // ── Toggle voice capture on/off

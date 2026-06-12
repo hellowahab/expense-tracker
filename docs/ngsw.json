@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1781162040982,
+  "timestamp": 1781294939661,
   "index": "/expense-tracker/index.html",
   "assetGroups": [
     {
@@ -11,22 +11,22 @@
         "ignoreVary": true
       },
       "urls": [
-        "/expense-tracker/chunk-4MPZUP3S.js",
-        "/expense-tracker/chunk-AVQ4J5XR.js",
-        "/expense-tracker/chunk-CHH4YZEK.js",
-        "/expense-tracker/chunk-DLBKO63O.js",
-        "/expense-tracker/chunk-EDXIA3RM.js",
-        "/expense-tracker/chunk-JBFITWPQ.js",
-        "/expense-tracker/chunk-JEQ2B2TO.js",
-        "/expense-tracker/chunk-MGRBMRZB.js",
-        "/expense-tracker/chunk-MM3K6SXZ.js",
-        "/expense-tracker/chunk-QPH366DX.js",
-        "/expense-tracker/chunk-SS3AP6EK.js",
-        "/expense-tracker/chunk-WXA2HCVZ.js",
-        "/expense-tracker/chunk-XKPV7RQV.js",
+        "/expense-tracker/chunk-3UXLRSJU.js",
+        "/expense-tracker/chunk-4INBZDR5.js",
+        "/expense-tracker/chunk-4PTM5IJ2.js",
+        "/expense-tracker/chunk-7ORNWAVL.js",
+        "/expense-tracker/chunk-BWVYNQXX.js",
+        "/expense-tracker/chunk-CMMUICNN.js",
+        "/expense-tracker/chunk-DT4NMSTK.js",
+        "/expense-tracker/chunk-I7A36GML.js",
+        "/expense-tracker/chunk-OKKUHOZ5.js",
+        "/expense-tracker/chunk-OS4FCO5H.js",
+        "/expense-tracker/chunk-UC4G5FKH.js",
+        "/expense-tracker/chunk-UNXSYDGF.js",
+        "/expense-tracker/chunk-YCJ6BMSQ.js",
         "/expense-tracker/favicon.ico",
         "/expense-tracker/index.html",
-        "/expense-tracker/main-7NJI42WO.js",
+        "/expense-tracker/main-L6T6OSV4.js",
         "/expense-tracker/manifest.webmanifest",
         "/expense-tracker/styles-5INURTSO.css"
       ],
@@ -56,24 +56,39 @@
         "/expense-tracker/screenshots/screenshot-wide.png"
       ],
       "patterns": []
+    },
+    {
+      "name": "tesseract-ocr",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/expense-tracker/tesseract/lang/eng.traineddata.gz",
+        "/expense-tracker/tesseract/tesseract-core-simd-lstm.wasm",
+        "/expense-tracker/tesseract/tesseract-core-simd-lstm.wasm.js",
+        "/expense-tracker/tesseract/worker.min.js"
+      ],
+      "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
     "/expense-tracker/brand/logo.jpeg": "3e3020fd75888dca336e5aa75d597ac5f432d3a0",
-    "/expense-tracker/chunk-4MPZUP3S.js": "4c81538ee8c2ad395c9ebb3a0ca61a23a5aefa67",
-    "/expense-tracker/chunk-AVQ4J5XR.js": "453110716519c16701b9db0cbee9390be36aa966",
-    "/expense-tracker/chunk-CHH4YZEK.js": "c16d1f7da050496a30465e4c4df6e438f4ceac97",
-    "/expense-tracker/chunk-DLBKO63O.js": "1d5ef0d09aca194ae14bc9468e8925ecbea4a2cf",
-    "/expense-tracker/chunk-EDXIA3RM.js": "7fafcbc3c9ec75fcddf8f6c538de45b4c4bf0bc5",
-    "/expense-tracker/chunk-JBFITWPQ.js": "3b0bf5d1187f81a5afb8c5b4dd7062636cd9d925",
-    "/expense-tracker/chunk-JEQ2B2TO.js": "d8b368090437a332ec516a63a7578af42897cd65",
-    "/expense-tracker/chunk-MGRBMRZB.js": "02ced28f403b5626aae9962ca519a85c8c303705",
-    "/expense-tracker/chunk-MM3K6SXZ.js": "15867080286993f3bd75196b6e26adaf297d991e",
-    "/expense-tracker/chunk-QPH366DX.js": "f5738a86b1a4039f8b07381cbf59811102973438",
-    "/expense-tracker/chunk-SS3AP6EK.js": "b0feb382301a6bdc848632f6dffc199453fced1e",
-    "/expense-tracker/chunk-WXA2HCVZ.js": "9eab7d979b6e6bd1e804fe34933cbbd19c2e5aa8",
-    "/expense-tracker/chunk-XKPV7RQV.js": "bcf32c50b8c424dc3433eb92504e129dc93daf66",
+    "/expense-tracker/chunk-3UXLRSJU.js": "490cf9efc79fd1dbaa794c76067500aa6d28bac9",
+    "/expense-tracker/chunk-4INBZDR5.js": "8b31d4d3f00dbe2831e64a24db2c29f14fa17f6f",
+    "/expense-tracker/chunk-4PTM5IJ2.js": "4d203d4d2f78c908a7d64287d3affcb10beb67ea",
+    "/expense-tracker/chunk-7ORNWAVL.js": "07aeb0b7c54cfdbcb3254b3dffc9a34eff47d84e",
+    "/expense-tracker/chunk-BWVYNQXX.js": "914b74206bc0db22ac0f605fee1b0fdf88d84749",
+    "/expense-tracker/chunk-CMMUICNN.js": "b6cfbd9dee470e4c3445e2fa96088453e0b1a860",
+    "/expense-tracker/chunk-DT4NMSTK.js": "3d7bb029c1e998567d8095c478a79e9a79163b19",
+    "/expense-tracker/chunk-I7A36GML.js": "63c8011b6f910351cddd6f7ea6d159bd9de53b5d",
+    "/expense-tracker/chunk-OKKUHOZ5.js": "f267182f414055f5a075189ef104ee962a9a6c23",
+    "/expense-tracker/chunk-OS4FCO5H.js": "b7f351d56b966c7fdf8f2510443c20dd0cf239ba",
+    "/expense-tracker/chunk-UC4G5FKH.js": "2b21c8ed9b05a21e4c9f649ade2cc644ac87527f",
+    "/expense-tracker/chunk-UNXSYDGF.js": "6bcd6106262c8e7c8e11e1bfcff0ef27793bfd2f",
+    "/expense-tracker/chunk-YCJ6BMSQ.js": "67aaee10d5e93865e8624aca3964e0c22c24956e",
     "/expense-tracker/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
     "/expense-tracker/icons/icon-128x128.png": "ae9fe559f9d90ff909ca3437d746bd55aeb9cf5d",
     "/expense-tracker/icons/icon-144x144.png": "de4d4d1bc00aab4fa8ee470aafa193c3af1f8d17",
@@ -86,12 +101,16 @@
     "/expense-tracker/icons/icon-96x96.png": "99a7115c9a81f3d0b6209924cba4bc01789b5d1e",
     "/expense-tracker/icons/icon-maskable-192x192.png": "a46a259e636f3c708aebcc40730bc1ad8774e55a",
     "/expense-tracker/icons/icon-maskable-512x512.png": "d563f1731e6498ad0a432ab2a93ef596469ce915",
-    "/expense-tracker/index.html": "86d09e3054f327c95e466ddc0afe65498969f19c",
-    "/expense-tracker/main-7NJI42WO.js": "127bb8880c54a867669dc41b320dd5743c54acbc",
+    "/expense-tracker/index.html": "08e478dc656ac32c981b525d75b272baf28debf6",
+    "/expense-tracker/main-L6T6OSV4.js": "40fde2ff901976410ffa2e2dc6d6fd91263697e4",
     "/expense-tracker/manifest.webmanifest": "8af79627b0242ce2c6bfef11e346368470e36abd",
     "/expense-tracker/screenshots/screenshot-mobile.png": "d44c20d07a6f8d9c4b961d4d49c7ede362fb0beb",
     "/expense-tracker/screenshots/screenshot-wide.png": "83f82823e8758146c5b8a678384a83aaf74fc049",
-    "/expense-tracker/styles-5INURTSO.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    "/expense-tracker/styles-5INURTSO.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "/expense-tracker/tesseract/lang/eng.traineddata.gz": "1df4026ac0e20b7f040484cd50d4d519867d0da3",
+    "/expense-tracker/tesseract/tesseract-core-simd-lstm.wasm": "aba3e2e1c89c1bc2554fb261c9435096c47c92c5",
+    "/expense-tracker/tesseract/tesseract-core-simd-lstm.wasm.js": "c59e33819df35e351bb95e339d4d43cd389f00b8",
+    "/expense-tracker/tesseract/worker.min.js": "c47a974b29d8b0a31dbcdce8abbbbfd8671ac501"
   },
   "navigationUrls": [
     {

@@ -1,1 +1,0 @@
-import{Da as m}from"./chunk-4MPZUP3S.js";var o=class t{transform(r,n=!0,e=0){if(r==null||isNaN(r))return"";let i=new Intl.NumberFormat("en-PK",{minimumFractionDigits:e,maximumFractionDigits:e}).format(r);return n?`Rs ${i}`:i}static \u0275fac=function(n){return new(n||t)};static \u0275pipe=m({name:"pkrCurrency",type:t,pure:!0})};export{o as a};

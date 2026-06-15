@@ -41,6 +41,12 @@ export const routes: Routes = [
         .then(m => m.AddExpenseComponent)
   },
   {
+    path: 'settings',
+    loadComponent: () =>
+      import('./features/settings/settings')
+        .then(m => m.SettingsComponent)
+  },
+  {
     path: '**',
     redirectTo: 'dashboard'
   }

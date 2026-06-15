@@ -48,6 +48,15 @@
         </a>
       }
 
+      <!-- settings -->
+      <a [routerLink]="'/settings'"
+        routerLinkActive="active-link"
+        title="Settings"
+        style="padding:6px 10px; border-radius:6px; font-size:16px;
+               text-decoration:none; color:#374151;">
+        ⚙️
+      </a>
+
       <!-- auth button — login or logout -->
       @if (authService.isLoggedIn()) {
         <button

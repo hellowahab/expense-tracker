@@ -1,0 +1,64 @@
+### Orientation Prompt
+
+"I want to back up the app's data to the user's own Google
+Drive — no central server, the user owns their data. I don't
+want backup files cluttering their normal Drive though.
+Research the right Google Drive approach for app backups
+and explain it before we build."
+
+### Google Cloud Setup
+
+"Walk me through setting up Google Drive access for a
+client-side web app, step by step:
+- creating the Google Cloud project
+- enabling the Drive API
+- configuring the OAuth consent screen
+- creating an OAuth client ID for our GitHub Pages URL
+- scoping it to ONLY appDataFolder — minimum permission,
+  nothing else
+
+Tell me exactly what to enter at each screen. We want the
+narrowest possible scope — we can only touch our own
+backup folder, never the user's real files."
+
+### Build Step 2 — The Google Auth Service
+
+"Read CLAUDE.md and our auth.service.ts so you follow our
+patterns. Build a GoogleDriveService that handles sign-in
+with Google using the OAuth client we just set up.
+
+Expose it as signals like the rest of the app — whether
+the user is signed in, their account info, and any auth
+error. Use inject(). Follow our AuthService patterns where
+they fit."
+
+### Build Step 3 — Backup
+
+"Add a backup method to GoogleDriveService. It should take
+our app data — all expenses and budgets from the ExpenseStore —
+serialize it to JSON, and write it to the appDataFolder as a
+single backup file. If a backup already exists, update it
+rather than creating duplicates.
+
+Add a 'Back up now' button somewhere sensible, with a loading
+state and a success confirmation showing the backup time.
+Read expense.store.ts so you pull the data correctly."
+
+### Build Step 4 — Restore
+
+"Add a restore method. It reads the backup file from
+appDataFolder, parses it, and loads the expenses and budgets
+back into the ExpenseStore.
+
+Because restore OVERWRITES current data, show a confirmation
+first — 'This will replace your current data with the backup
+from [date]. Continue?' Add a 'Restore from backup' button
+with that confirmation."
+
+### The Retrospective
+
+"Update CLAUDE.md: the Google Drive integration — the OAuth
+setup, the appDataFolder approach, the GoogleDriveService and
+its signals, and the backup/restore methods. Note the scope
+is appDataFolder-only by design. Also note this stays
+client-side — no server was added."

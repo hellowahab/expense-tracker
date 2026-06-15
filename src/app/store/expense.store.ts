@@ -261,6 +261,14 @@ export const ExpenseStore = signalStore(
         localStorage.removeItem('et_expenses');
         localStorage.removeItem('et_limits');
       },
+
+      // ── Replace ALL app data with a restored backup. Overwrites state and
+      //    localStorage together so the restore survives a reload.
+      restoreData(expenses: Expense[], limits: Record<string, number>) {
+        patchState(store, { expenses, limits });
+        saveExpenses(expenses);
+        saveLimits(limits);
+      },
     };
   }),
 

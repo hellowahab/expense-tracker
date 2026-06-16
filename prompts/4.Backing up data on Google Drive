@@ -40,7 +40,9 @@ serialize it to JSON, and write it to the appDataFolder as a
 single backup file. If a backup already exists, update it
 rather than creating duplicates.
 
-Add a 'Back up now' button somewhere sensible, with a loading
+Add a 'Back up now' button to a setting screen which should
+be accessible from the main window using a settings icon,
+with a loading
 state and a success confirmation showing the backup time.
 Read expense.store.ts so you pull the data correctly."
 

@@ -1,4 +1,6 @@
 import { Injectable, signal } from '@angular/core';
+import { Capacitor } from '@capacitor/core';
+import { Ocr } from '@jcesarmobile/capacitor-ocr';
 import { createWorker, type Worker } from 'tesseract.js';
 
 // ── Self-hosted Tesseract assets live in public/tesseract/ (copied from
@@ -44,6 +46,19 @@ export class ReceiptOcrService {
     this._progress.set(0);
     this._isScanning.set(true);
     try {
+      // ── Native (Android/iOS): on-device OCR via Capacitor — Google ML Kit on
+      //    Android, Apple Vision on iOS. Better accuracy than the WASM Tesseract
+      //    core and no model download (bundled, fully offline).
+      if (Capacitor.isNativePlatform()) {
+        const dataUrl = await this.toDataUrl(image);
+        const { results } = await Ocr.process({ image: dataUrl });
+        // ML Kit returns text grouped into blocks; join them into the same kind
+        // of raw, multi-line string Tesseract produced so parseReceipt() — and
+        // the review screen downstream — are completely unaffected.
+        return results.map((r) => r.text).join('\n');
+      }
+
+      // ── Web (GitHub Pages PWA): keep the self-hosted Tesseract path.
       const worker = await this.getWorker();
       const { data } = await worker.recognize(image);
       return data.text;
@@ -53,6 +68,19 @@ export class ReceiptOcrService {
     } finally {
       this._isScanning.set(false);
     }
+  }
+
+  // ── Normalize OCR input to what the native plugin expects: a base64 data URL.
+  //    A string is assumed to already be a data/file URL and passed through; a
+  //    File/Blob (what our camera <input capture> yields) is read into one.
+  private toDataUrl(image: File | Blob | string): Promise<string> {
+    if (typeof image === 'string') return Promise.resolve(image);
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(reader.error);
+      reader.onload = () => resolve(reader.result as string);
+      reader.readAsDataURL(image);
+    });
   }
 
   // ── Lazily create the worker with our self-hosted, base-href-aware paths

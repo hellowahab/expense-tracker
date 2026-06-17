@@ -34,6 +34,12 @@ export const routes: Routes = [
         .then(m => m.BudgetsComponent)
   },
   {
+    path: 'reports',
+    loadComponent: () =>
+      import('./features/reports/reports')
+        .then(m => m.ReportsComponent)
+  },
+  {
     path: 'add',
     canActivate: [authGuard],
     loadComponent: () =>

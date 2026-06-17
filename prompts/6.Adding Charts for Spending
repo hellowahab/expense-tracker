@@ -1,0 +1,34 @@
+### Warm up Prompt
+
+We're adding a Reports page with spending charts, live on stream.
+Read CLAUDE.md for our conventions, and read
+src/app/store/expense.store.ts so you see what computed signals
+already exist. Then tell me:
+1. What data we already have that's useful for charts
+2. What new computed signals we'll need to add
+3. Confirm Chart.js fits our Angular v21 standalone setup
+
+Don't write code yet — just confirm understanding and the plan.
+
+
+### 
+
+yes verify using the Angular MCP and then
+
+Add the computed signals the charts need, following our existing
+withComputed() patterns in expense.store.ts exactly.
+
+We need:
+- monthlyTotals: total spending per month for the last 6 months
+- dailyTotals: total spending per day for the current month
+
+Derive both from the existing expenses signal — no new state.
+Show me only the new computed signals before adding them to the file.
+
+
+###
+
+Confirm how to import and use chart.js in an
+Angular v21 standalone component. Also we use to deploy our app to GitHub Pages,
+so flag any asset-path or config gotchas before we build, like we
+hit with the PWA and Tesseract.js.

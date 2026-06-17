@@ -96,12 +96,56 @@ export const ExpenseStore = signalStore(
         : thisMonthExpenses().filter(e => e.category === cat);
     });
 
+    // total spending per month for the last 6 months (oldest first)
+    const monthlyTotals = computed(() => {
+      const now = new Date();
+      const buckets: { month: string; total: number }[] = [];
+
+      for (let i = 5; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        const month = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+        buckets.push({ month, total: 0 });
+      }
+
+      const index = new Map(buckets.map(b => [b.month, b]));
+      for (const e of expenses()) {
+        const bucket = index.get(e.date.slice(0, 7));
+        if (bucket) bucket.total += e.amount;
+      }
+
+      return buckets;
+    });
+
+    // total spending per day for the current month (every day, zeros included)
+    const dailyTotals = computed(() => {
+      const now      = new Date();
+      const year     = now.getFullYear();
+      const month    = now.getMonth();                          // 0-based
+      const days     = new Date(year, month + 1, 0).getDate();
+      const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
+
+      const buckets: { day: string; total: number }[] = [];
+      for (let d = 1; d <= days; d++) {
+        buckets.push({ day: `${monthKey}-${String(d).padStart(2, '0')}`, total: 0 });
+      }
+
+      const index = new Map(buckets.map(b => [b.day, b]));
+      for (const e of thisMonthExpenses()) {
+        const bucket = index.get(e.date);
+        if (bucket) bucket.total += e.amount;
+      }
+
+      return buckets;
+    });
+
     return {
       thisMonthExpenses,
       spendByCategory,
       budgets,
       totals,
       filteredExpenses,
+      monthlyTotals,
+      dailyTotals,
     };
   }),
 

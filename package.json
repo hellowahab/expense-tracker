@@ -23,6 +23,7 @@
     "@capacitor/core": "^8.4.0",
     "@jcesarmobile/capacitor-ocr": "^0.3.0",
     "@ngrx/signals": "^21.1.0",
+    "chart.js": "^4.5.1",
     "rxjs": "~7.8.0",
     "tesseract.js": "^7.0.0",
     "tslib": "^2.3.0"
